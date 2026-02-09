@@ -10,10 +10,10 @@ app.use(express.json());
 (async () => {
   try {
     await AppDataSource.initialize();
-    console.log('✅ Database connected and ready!');
+    console.log('Database connected and ready!');
   } catch (err) {
     console.error('Failed to connect to DB:', err);
-    process.exit(1); // crash server if DB fails
+    process.exit(1); 
   }
 })();
 

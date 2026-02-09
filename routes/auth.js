@@ -6,7 +6,7 @@ const AppDataSource = require('../src/data-source').default;
 
 const userRepo = AppDataSource.getRepository('User');
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {  
   const { email, password, name } = req.body;
 
   if (!email || !password) {
