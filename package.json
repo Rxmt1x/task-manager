@@ -4,9 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "build": "tsc",
-    "dev": "nodemon --exec ts-node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +21,6 @@
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11",
-    "ts-node": "^10.9.2"
+    "nodemon": "^3.1.11"
   }
 }

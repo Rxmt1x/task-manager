@@ -14,6 +14,5 @@ const AppDataSource = new DataSource({
   entities: [require('./entity/User'), require('./entity/Task')],
   migrations: ['src/migration/**/*.js'],
 });
-console.log('Entities loaded:', AppDataSource.entityMetadatas.map(e => e.name));
 
 module.exports = AppDataSource;
