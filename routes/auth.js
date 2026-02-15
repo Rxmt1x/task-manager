@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken'); // baraye gereftan va verify kardane token
 const AppDataSource = require('../src/data-source'); // baraye bargharari connection ba DB
 const authGuard = require('../middleware/auth'); // guard 
 const router = express.Router(); // auth,task,user express router object ro misaze
+const validate = require('../middleware/validate');
+const { signupDto, loginDto } = require('../src/dto/auth.dto');
 
 function signAccessToken(user){
   return jwt.sign(
@@ -13,14 +15,11 @@ function signAccessToken(user){
   );
 } // token dorost mikone Id va email ro dakhel token encode mikone ba secret code token verify mikone va expiretion time mizare
 
-router.post('/signup', async (req, res)=>{ // endpoint misaze
+router.post('/signup',validate(signupDto), async (req, res)=>{ // endpoint misaze
   const { email, password, name} = req.body; // ba json body in 3 mored ro as client migire
    
   if (!email || !password){
     return res.status(400).json({ error:'Email and Password required'});
-  }
-  if (password.length < 4){
-    return res.status(400).json({error:'Password must be at least 4 characters'});
   }
 
   try{
@@ -56,7 +55,7 @@ router.post('/signup', async (req, res)=>{ // endpoint misaze
   } // dar sorate be vojode omadane moshkel error mifreste
 });
 
-router.post('/signin', async (req, res)=>{
+router.post('/signin', validate(loginDto), async (req, res)=>{
     const { email, password } = req.body;
 
   if (!email || !password) {
@@ -113,12 +112,5 @@ router.get('/me', authGuard, async (req, res)=>{
 });
 
 module.exports = router;
-
-
-
-
-
-
-
 
 

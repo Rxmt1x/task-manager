@@ -1,6 +1,6 @@
 const z = require('zod');
 
-const registerDto = z.object({
+const signupDto = z.object({
   email: z.string().email({ message: "Email is not valid" }),
   password: z.string().min(4, { message: "Password must be at least 4 characters" }),
   name: z.string().optional(),
@@ -12,6 +12,6 @@ const loginDto = z.object({
 });
 
 module.exports = {
-  registerDto,
+  registerDto: signupDto,
   loginDto,
 };
