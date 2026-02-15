@@ -65,7 +65,7 @@ router.post('/signin', async (req, res)=>{
 
   try{
    const userRepo = AppDataSource.getRepository('User'); // az DB be user table dastresi peyda mikonim
-   const existingUser = await userRepo.findOneBy({email}); 
+   const user = await userRepo.findOneBy({email}); 
    if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     } // age user peyda nashe error mide
@@ -81,9 +81,9 @@ router.post('/signin', async (req, res)=>{
     message: 'Signin was successful',
     token,
       user: {
-        id: savedUser.id,
-        email: savedUser.email,
-        name: savedUser.name,
+        id: user.id,
+        email: user.email,
+        name: user.name,
       },
    });
 }catch (error) {

@@ -1,10 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const AppDataSource = require('./src/data-source');
-const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(express.json());
+
+const authRoutes = require('./routes/auth');
+const taskRoutes = require('./routes/tasks');
+
+app.use('/tasks', taskRoutes);
 
 const PORT = Number(process.env.PORT) || 5000;
 
