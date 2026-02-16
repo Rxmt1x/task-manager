@@ -6,12 +6,12 @@ const signupDto = z.object({
   name: z.string().optional(),
 });
 
-const loginDto = z.object({
+const signinDto = z.object({
   email: z.string().email({ message: "Email is not valid" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
 module.exports = {
   registerDto: signupDto,
-  loginDto,
+  signinDto,
 };

@@ -5,7 +5,36 @@ const AppDataSource = require('../src/data-source'); // baraye bargharari connec
 const authGuard = require('../middleware/auth'); // guard 
 const router = express.Router(); // auth,task,user express router object ro misaze
 const validate = require('../middleware/validate');
-const { signupDto, loginDto } = require('../src/dto/auth.dto');
+const { signupDto, signinDto } = require('../src/dto/auth.dto');
+
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: test@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: 12345678
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Invalid input
+ */
 
 function signAccessToken(user){
   return jwt.sign(
@@ -55,7 +84,34 @@ router.post('/signup',validate(signupDto), async (req, res)=>{ // endpoint misaz
   } // dar sorate be vojode omadane moshkel error mifreste
 });
 
-router.post('/signin', validate(loginDto), async (req, res)=>{
+/**
+ * @swagger
+ * /auth/signin:
+ *   post:
+ *     summary: signin user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: signin success
+ *       401:
+ *         description: Invalid credentials
+ */
+
+router.post('/signin', validate(signinDto), async (req, res)=>{
     const { email, password } = req.body;
 
   if (!email || !password) {
